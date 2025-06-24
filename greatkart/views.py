@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from store.models import Product
 # #superuser password GREATKART and username aaditya
 # Email: test@gmail.com
 # Username: superuseradmin1
@@ -10,4 +11,8 @@ from django.shortcuts import render
 #     return render(request, 'home.html')
 
 def index(request):
-    return render(request, 'index.html')
+    products = Product.objects.all().filter(is_available = True)
+    context = {
+        'products' : products
+    }
+    return render(request, 'index.html', context)
