@@ -1,18 +1,61 @@
-# Byte-compiled / optimized / DLL files
+# Python
+*.pyc
 __pycache__/
-*.py[cod]
 *.pyo
+*.pyd
 
 # Virtual environment
 venv/
 env/
+ENV/
+.venv/
+.ENV/
 
-# Django stuff:
-*.log
-db.sqlite3
-media/
-static/
-
-# VS Code settings
+# VSCode config
 .vscode/
 
+# Django specific
+db.sqlite3
+*.sqlite3
+*.log
+
+# Django media/uploads
+/media/
+media/
+staticfiles/
+static_root/
+
+# Migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.pyd
+*/migrations/*.log
+*/migrations/*.sqlite3
+*/migrations/*.db
+**/migrations/
+!*/migrations/__init__.py
+
+# Secrets and environment variables
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (if you use npm for frontend)
+node_modules/
+
+# Pytest and test cache
+htmlcov/
+.tox/
+.coverage
+.cache
+.pytest_cache/
+
+# Compiled files
+*.egg-info/
+*.egg
+dist/
+build/

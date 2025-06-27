@@ -53,7 +53,7 @@ def add_cart(request, product_id):
             index= ex_var_list.index(product_variation)
             item_id=id[index]
             item=Cartitem.objects.get(product=product, id=item_id)
-            item.quantity+=1
+            item.quantity += 1
             item.save()
         
         else:
@@ -62,6 +62,10 @@ def add_cart(request, product_id):
                 item.variations.clear()
                 item.variations.add(*product_variation)
             item.save()
+            # if len(product_variation) > 0:
+            #     item.variations.clear()
+            #     item.variations.add(*product_variation)
+            # item.save()
     else:
         cart_item= Cartitem.objects.create(
             product=product,
@@ -98,6 +102,8 @@ def remove_cart_items(request,product_id, cart_item_id):
 
 def cart(request,total=0, quantity =0, cart_item =None):
     try:
+        tax = 0
+        grand_total = 0
         cart= Cart.objects.get(cart_id=_cart_id(request))
         cart_items = Cartitem.objects.filter(cart=cart, is_available=True)
         for cart_item in cart_items:
