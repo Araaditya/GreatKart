@@ -27,11 +27,12 @@ SECRET_KEY = 'django-insecure-q11h9w5vx@7kj7nsu=3vkhah+fol)_i!f2ryb86&lw4+_3=-!#
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'orders.apps.OrdersConfig',
     'cart.apps.CartConfig',
     'store.apps.StoreConfig',
     'accounts.apps.AccountsConfig',

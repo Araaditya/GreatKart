@@ -52,10 +52,6 @@ def add_cart(request, product_id):
                     item.variations.clear()
                     item.variations.add(*product_variation)
                 item.save()
-                # if len(product_variation) > 0:
-                #     item.variations.clear()
-                #     item.variations.add(*product_variation)
-                # item.save()
         else:
             cart_item= Cartitem.objects.create(product=product,quantity=1,user=current_user)
             if len(product_variation) > 0:
