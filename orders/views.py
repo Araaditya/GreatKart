@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
+from .models import Payment
 from cart.models import Cartitem
 from .forms import Orderform,Order
-import datetime
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import datetime,json
 # Create your views here.
 def place_order(request,total=0, quantity =0):
     current_user = request.user
@@ -63,5 +66,21 @@ def place_order(request,total=0, quantity =0):
     else:
         return redirect('checkout')  
 
+@csrf_exempt
 def payments(request):
-    return render(request,'payment.html')
+    if request.method == "POST":
+        body = json.loads(request.body)
+        order = Order.objects.get(user = request.user, is_ordered = False, order_number = body['orderID'])
+        print("✅ Received:", body)
+        payment = Payment(
+            user = request.user,
+            payment_id = body['transaction_ID'],
+            payment_method = body['payment_method'],
+            amount_paid = order.order_total,
+            status = body['status'],
+        )
+        payment.save()
+        order.payment = payment
+        order.is_ordered = True
+        order.save()
+    return render('request','payment.html')
